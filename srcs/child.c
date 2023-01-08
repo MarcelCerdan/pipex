@@ -6,13 +6,13 @@
 /*   By: mthibaul <mthibaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 18:08:48 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/08 19:25:01 by mthibaul         ###   ########.fr       */
+/*   Updated: 2023/01/08 19:32:31 by mthibaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int child(int f, char *cmd, int **tube)
+int child(int f, char *cmd, int tube[2])
 {
     if(dup2(f, 0) < 0)
         error("Child dup2 input");
@@ -22,7 +22,7 @@ int child(int f, char *cmd, int **tube)
     close(f);
 }
 
-int parent(int f, char *cmd, int **tube)
+int parent(int f, char *cmd, int tube[2])
 {
     int status;
 
