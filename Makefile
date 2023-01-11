@@ -53,6 +53,9 @@ libft.a		:
 ${NAME}			:	${OBJS} Makefile ${HEAD}
 					${CC} ${CFLAGS} -I $(DIR_HEAD) -L libft/ -lft ${OBJS} -o ${NAME}
 
+debug			:	${OBJS} Makefile ${HEAD}
+					${CC} -g ${CFLAGS} -I $(DIR_HEAD) -L libft/ -lft ${OBJS} -o $@
+
 # ---- Compiled Rules ---- #
 
 
@@ -66,7 +69,7 @@ ${DIR_OBJS}		:
 # ---- Usual Commands ---- #
 
 clean			:
-					${RM} ${DIR_OBJS}
+					${RM} ${DIR_OBJS} 
 
 fclean			:	clean
 					make fclean -C ${DIR_LIBFT}

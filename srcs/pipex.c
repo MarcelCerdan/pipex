@@ -6,22 +6,51 @@
 /*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 17:34:17 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/10 16:26:34 by mthibaul         ###   ########lyon.fr   */
+/*   Updated: 2023/01/11 18:37:38 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include "libft.h"
+
+char	**cmd_path(char **envp)
+{
+	int		i;
+	char	*path;
+	char	**split_path;
+
+	i = 0;
+	path = NULL;
+	while (envp[i] && !path)
+	{
+		if (ft_strncmp("PATH", envp[i], 4) == 0)
+			path = ft_substr(envp[i], 5, ft_strlen(envp[i]) - 4);
+		i++;
+	}
+	split_path = ft_split(path, ':');
+	i = 0;
+	while (split_path[i])
+	{
+		split_path[i] = ft_strjoin(split_path[i], "/");
+		i++;
+	}
+	return (split_path);
+}
 
 void	pipex(int f1, int f2, char **av, char **envp)
 {
 	int		tube[2];
-	pid_t	parent;
+	pid_t	pid;
 
 	if (pipe(tube) < 0)
 		return (error("Pipe"));
-	parent = fork();
-	if (parent < 0)
+	pid = fork();
+	if (pid < 0)
 		return (error("Fork"));
+	if (pid == 0)
+		child(f1, av[2], tube, envp);
+	else
+		parent(f2, av[3], tube, envp);
 }
 
 int	main(int ac, char **av, char **envp)
