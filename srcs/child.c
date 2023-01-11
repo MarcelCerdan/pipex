@@ -3,34 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mthibaul <mthibaul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 18:08:48 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/08 19:32:31 by mthibaul         ###   ########.fr       */
+/*   Updated: 2023/01/10 16:27:40 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int child(int f, char *cmd, int tube[2])
+int	child(int f, char *cmd, int tube[2])
 {
-    if(dup2(f, 0) < 0)
-        error("Child dup2 input");
-    if(dup2(tube[1], 1) < 0)
-        error("Child dup2 output");
-    close(tube[0]);
-    close(f);
+	if (dup2(f, 0) < 0)
+		error("Child dup2 input");
+	if (dup2(tube[1], 1) < 0)
+		error("Child dup2 output");
+	close(tube[0]);
+	close(f);
 }
 
-int parent(int f, char *cmd, int tube[2])
+int	parent(int f, char *cmd, int tube[2])
 {
-    int status;
+	int	status;
 
-    waitpid(-1, &status, 0);
-    if (dup2(f, 1) < 0)
-        error("Parent dup2 output");
-    if (dup2(tube[0], 0))
-        error("Parent dup2 input");
-    close(tube[1]);
-    close(f);
+	waitpid(-1, &status, 0);
+	if (dup2(f, 1) < 0)
+		error("Parent dup2 output");
+	if (dup2(tube[0], 0))
+		error("Parent dup2 input");
+	close(tube[1]);
+	close(f);
 }

@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mthibaul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/08 18:08:46 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/10 16:26:52 by mthibaul         ###   ########lyon.fr   */
+/*   Created: 2022/11/07 14:24:36 by mthibaul          #+#    #+#             */
+/*   Updated: 2022/11/07 15:15:06 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	err_msg(char *err)
+size_t	ft_strlen(const char *s)
 {
-	write(2, err, ft_strlen(err));
-	return (1);
-}
+	size_t	i;
 
-void	error(char *err)
-{
-	perror(err);
-	exit(1);
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
 }

@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/08 18:08:46 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/10 16:26:52 by mthibaul         ###   ########lyon.fr   */
+/*   Created: 2022/11/08 16:36:42 by mthibaul          #+#    #+#             */
+/*   Updated: 2022/11/08 16:40:46 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-
-int	err_msg(char *err)
+int	ft_toupper(int c)
 {
-	write(2, err, ft_strlen(err));
-	return (1);
-}
-
-void	error(char *err)
-{
-	perror(err);
-	exit(1);
+	if ((c >= 97) && (c <= 122))
+		c -= 32;
+	return (c);
 }

@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/08 18:08:46 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/10 16:26:52 by mthibaul         ###   ########lyon.fr   */
+/*   Created: 2022/11/10 07:42:37 by mthibaul          #+#    #+#             */
+/*   Updated: 2022/11/11 18:01:09 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	err_msg(char *err)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	write(2, err, ft_strlen(err));
-	return (1);
-}
+	char			*new_str;
+	unsigned int	i;
 
-void	error(char *err)
-{
-	perror(err);
-	exit(1);
+	if (!f || !s)
+		return (NULL);
+	new_str = ft_strdup(s);
+	if (new_str == NULL)
+		return (NULL);
+	i = 0;
+	while (new_str[i])
+	{
+		new_str[i] = f(i, new_str[i]);
+		i++;
+	}
+	return (new_str);
 }

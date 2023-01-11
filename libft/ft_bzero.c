@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mthibaul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/08 18:08:46 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/10 16:26:52 by mthibaul         ###   ########lyon.fr   */
+/*   Created: 2022/11/07 16:36:36 by mthibaul          #+#    #+#             */
+/*   Updated: 2022/11/07 16:52:57 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	err_msg(char *err)
+void	ft_bzero(void *s, size_t len)
 {
-	write(2, err, ft_strlen(err));
-	return (1);
-}
+	size_t			i;
+	unsigned char	*copy;
 
-void	error(char *err)
-{
-	perror(err);
-	exit(1);
+	copy = (unsigned char *) s;
+	i = 0;
+	while (i < len)
+		copy[i++] = '\0';
 }

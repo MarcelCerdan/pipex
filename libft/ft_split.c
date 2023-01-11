@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mthibaul <mthibaul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 17:57:45 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/08 19:31:37 by mthibaul         ###   ########.fr       */
+/*   Updated: 2022/11/15 15:12:20 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
 static int	ft_count_word(char const *s, char c)
 {

@@ -1,72 +1,77 @@
-.PHONY:	all clean fclean re
+.PHONY: all clean fclean re
 
 # ******** VARIABLES ******** #
 
 # ---- Final Executable --- #
 
-NAME		=	pipex
+NAME            =       pipex
 
 # ---- Directories ---- #
 
-DIR_OBJS	=	.objs/
+DIR_OBJS        =       .objs/
 
-DIR_SRCS	= 	srcs/
+DIR_SRCS        =       srcs/
 
-DIR_HEAD	=	incl/
+DIR_HEAD        =       incl/
+
+DIR_LIBFT       =       libft
 
 # ---- Files ---- #
 
-HEAD		=	pipex.h
+HEAD_LST        =       pipex.h libft.h
 
-SRCS		=	pipex.c		child.c		\
-				error.c		ft_strlen.c	\
-				ft_split.c
+SRCS_LST        =       pipex.c               child.c \
+                        error.c
 
-# ---- Paths ---- #
+OBJS_LST        =       ${SRCS_LST:%.c=%.o}
 
-SRCS_PATH 	=	$(addprefix $(SRCS), $(SRCS_DIR))
-OBJS		=	${SRCS_PATH:%.c=${DIR_OBJS}%.o}
+HEAD            =       $(addprefix $(DIR_HEAD), $(HEAD_LST))
 
-HEAD_PATH 	=	$(addprefix $(HEAD), $(HEAD_DIR))
+SRCS            =       $(addprefix $(DIR_SRCS), $(SRCS_LST))
+
+OBJS            =       $(addprefix $(DIR_OBJS), $(OBJS_LST))
 
 # ---- Compilation ---- #
 
-CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror
+CC              =       cc
+CFLAGS 			=       -Wall -Wextra -Werror -O3
 
 # ---- Commands ---- #
 
-RM		=	rm -rf
-MKDIR	=	mkdir -p
+RM              =       rm -rf
+MKDIR  			=       mkdir -p
+AR              =       ar rc
 
 # ********* RULES ******** #
 
-%.o			: 	%.c $(HEAD_PATH) Makefile
-				@${CC} ${CFLAGS} -c $< -o $@
+all                     :       libft.a ${NAME}
 
-all			:	${NAME}
+libft.a         :
+                                make -C ${DIR_LIBFT}
 
 # ---- Variables Rules ---- #
 
-${NAME}			:	${OBJS}
-					${CC} ${CFLAGS} ${OBJS} -o ${NAME}
+${NAME}                 :       ${OBJS} Makefile ${HEAD}
+                                        ${CC} ${CFLAGS} -I $(DIR_HEAD) -L libft/ -lft -L . ${LMLX} ${OBJS} -o ${NAME}
 
 # ---- Compiled Rules ---- #
 
-${OBJS}			:	| ${DIR_OBJS}
 
-${DIR_OBJS}%.o	:	%.c ${HEAD} Makefile
-					${CC} ${CFLAGS} -I . -c $< -o $@
+$(DIR_OBJS)%.o  :       $(DIR_SRCS)%.c ${HEAD} Makefile | $(DIR_OBJS)
+                                        ${CC} ${CFLAGS} -I $(DIR_HEAD) -c $< -o $@ 
 
-${DIR_OBJS}		:
-					${MKDIR} ${DIR_OBJS}
+${DIR_OBJS}             :
+                                        ${MKDIR} ${DIR_OBJS}
+
 
 # ---- Usual Commands ---- #
 
-clean			:
-					${RM} ${DIR_OBJS}
+clean                   :
+                                        ${RM} ${DIR_OBJS}
 
-fclean			:	clean
-					${RM} ${NAME}
+fclean                  :       clean
+                                        make fclean -C ${DIR_LIBFT}
+                                        ${RM} ${NAME}
 
-re				:	fclean all
+re                              :       fclean
+                                        $(MAKE) all

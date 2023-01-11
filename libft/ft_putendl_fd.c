@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/08 18:08:46 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/10 16:26:52 by mthibaul         ###   ########lyon.fr   */
+/*   Created: 2022/11/10 08:24:29 by mthibaul          #+#    #+#             */
+/*   Updated: 2022/11/10 08:29:48 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	err_msg(char *err)
+void	ft_putendl_fd(char *s, int fd)
 {
-	write(2, err, ft_strlen(err));
-	return (1);
-}
-
-void	error(char *err)
-{
-	perror(err);
-	exit(1);
+	ft_putstr_fd(s, fd);
+	ft_putchar_fd('\n', fd);
 }

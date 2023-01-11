@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/08 18:08:46 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/10 16:26:52 by mthibaul         ###   ########lyon.fr   */
+/*   Created: 2022/11/08 18:13:19 by mthibaul          #+#    #+#             */
+/*   Updated: 2022/11/08 18:19:34 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	err_msg(char *err)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	write(2, err, ft_strlen(err));
-	return (1);
-}
+	unsigned char	*cpy_s1;
+	unsigned char	*cpy_s2;
+	size_t			i;
 
-void	error(char *err)
-{
-	perror(err);
-	exit(1);
+	i = 0;
+	cpy_s1 = (unsigned char *) s1;
+	cpy_s2 = (unsigned char *) s2;
+	while (i < n)
+	{
+		if (cpy_s1[i] != cpy_s2[i])
+			return (cpy_s1[i] - cpy_s2[i]);
+		i++;
+	}
+	return (0);
 }

@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mthibaul <mthibaul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/07 14:24:36 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/08 18:40:51 by mthibaul         ###   ########.fr       */
+/*   Created: 2022/11/11 13:09:07 by mthibaul          #+#    #+#             */
+/*   Updated: 2022/11/11 13:26:46 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-size_t	ft_strlen(const char *s)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	size_t	i;
-
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
+	new->next = *lst;
+	*lst = new;
 }

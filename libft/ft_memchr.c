@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/08 18:08:46 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/10 16:26:52 by mthibaul         ###   ########lyon.fr   */
+/*   Created: 2022/11/08 17:35:47 by mthibaul          #+#    #+#             */
+/*   Updated: 2022/11/08 18:07:17 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	err_msg(char *err)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	write(2, err, ft_strlen(err));
-	return (1);
-}
+	size_t			i;
+	unsigned char	*cpy_s;
 
-void	error(char *err)
-{
-	perror(err);
-	exit(1);
+	cpy_s = (unsigned char *) s;
+	i = 0;
+	while (i < n)
+	{
+		if (cpy_s[i] == (unsigned char) c)
+			return (&(cpy_s[i]));
+		i++;
+	}
+	return (0);
 }

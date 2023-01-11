@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/08 18:08:46 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/10 16:26:52 by mthibaul         ###   ########lyon.fr   */
+/*   Created: 2022/11/10 08:29:15 by mthibaul          #+#    #+#             */
+/*   Updated: 2022/11/11 18:11:53 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	err_msg(char *err)
+void	ft_putnbr_fd(int n, int fd)
 {
-	write(2, err, ft_strlen(err));
-	return (1);
-}
-
-void	error(char *err)
-{
-	perror(err);
-	exit(1);
+	if (n == -2147483648)
+		ft_putstr_fd("-2147483648", fd);
+	else if (n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		ft_putnbr_fd(-n, fd);
+	}
+	else if (n > 9)
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd(n % 10, fd);
+	}
+	else
+	{
+		ft_putchar_fd(n % 10 + '0', fd);
+	}
 }

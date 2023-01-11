@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/08 18:08:46 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/10 16:26:52 by mthibaul         ###   ########lyon.fr   */
+/*   Created: 2022/11/11 13:59:21 by mthibaul          #+#    #+#             */
+/*   Updated: 2022/11/18 11:20:40 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	err_msg(char *err)
+void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
-	write(2, err, ft_strlen(err));
-	return (1);
-}
+	t_list	*elem;
 
-void	error(char *err)
-{
-	perror(err);
-	exit(1);
+	if (!lst || *lst == NULL || del == NULL)
+		return ;
+	while (*lst)
+	{
+		elem = *lst;
+		*lst = elem->next;
+		ft_lstdelone(elem, del);
+	}
 }

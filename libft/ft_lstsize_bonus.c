@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/08 18:08:46 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/10 16:26:52 by mthibaul         ###   ########lyon.fr   */
+/*   Created: 2022/11/11 13:30:01 by mthibaul          #+#    #+#             */
+/*   Updated: 2022/11/18 11:32:20 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	err_msg(char *err)
+int	ft_lstsize(t_list *lst)
 {
-	write(2, err, ft_strlen(err));
-	return (1);
-}
+	int	size;
 
-void	error(char *err)
-{
-	perror(err);
-	exit(1);
+	size = 0;
+	if (!lst)
+		return (0);
+	while (lst->next)
+	{
+		lst = lst->next;
+		size++;
+	}
+	return (size + 1);
 }

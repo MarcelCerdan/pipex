@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mthibaul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/08 18:08:46 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/10 16:26:52 by mthibaul         ###   ########lyon.fr   */
+/*   Created: 2022/11/07 13:18:34 by mthibaul          #+#    #+#             */
+/*   Updated: 2022/11/07 14:03:16 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-
-int	err_msg(char *err)
+int	ft_isalpha(int c)
 {
-	write(2, err, ft_strlen(err));
-	return (1);
-}
-
-void	error(char *err)
-{
-	perror(err);
-	exit(1);
+	if (((c >= 65) && (c <= 90)) || ((c >= 97) && (c <= 122)))
+		return (1);
+	else
+		return (0);
 }

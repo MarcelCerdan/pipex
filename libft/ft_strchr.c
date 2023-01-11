@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/08 18:08:46 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/10 16:26:52 by mthibaul         ###   ########lyon.fr   */
+/*   Created: 2022/11/08 16:49:48 by mthibaul          #+#    #+#             */
+/*   Updated: 2022/11/11 19:14:13 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-
-int	err_msg(char *err)
+char	*ft_strchr(const char *s, int c)
 {
-	write(2, err, ft_strlen(err));
-	return (1);
-}
+	char	*cpy_s;
 
-void	error(char *err)
-{
-	perror(err);
-	exit(1);
+	cpy_s = (char *) s;
+	while (*cpy_s)
+	{
+		if (*cpy_s == (char) c)
+			return (cpy_s);
+		cpy_s++;
+	}
+	if (*cpy_s != (char) c)
+		return (0);
+	else
+		return (cpy_s);
 }

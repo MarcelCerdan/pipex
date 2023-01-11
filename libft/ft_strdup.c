@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mthibaul <mthibaul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 14:03:59 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/08 19:35:32 by mthibaul         ###   ########.fr       */
+/*   Created: 2022/11/09 13:54:33 by mthibaul          #+#    #+#             */
+/*   Updated: 2022/11/25 16:59:08 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_strdup(const char *s1)
 {
 	char	*cpy;
-	size_t	size;
 
-	if (s == NULL)
-		return (NULL);
-	if (start > ft_strlen(s))
-		size = 0;
-	else
-		size = ft_strlen(start + s);
-	if (size > len)
-		size = len;
-	cpy = malloc(size + 1);
+	cpy = malloc((ft_strlen(s1) + 1) * sizeof(char));
 	if (cpy == NULL)
 		return (NULL);
-	ft_strlcpy(cpy, s + start, size + 1);
+	ft_strlcpy(cpy, s1, ft_strlen(s1) + 1);
 	return (cpy);
 }

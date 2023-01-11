@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/08 18:08:46 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/10 16:26:52 by mthibaul         ###   ########lyon.fr   */
+/*   Created: 2022/11/11 13:43:13 by mthibaul          #+#    #+#             */
+/*   Updated: 2022/11/18 12:49:20 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	err_msg(char *err)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	write(2, err, ft_strlen(err));
-	return (1);
-}
+	t_list	*elem;
 
-void	error(char *err)
-{
-	perror(err);
-	exit(1);
+	if (lst && *lst)
+	{
+		elem = *lst;
+		while (elem->next)
+			elem = elem->next;
+		elem->next = new;
+	}
+	else if (lst)
+		*lst = new;
 }

@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/08 18:08:46 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/10 16:26:52 by mthibaul         ###   ########lyon.fr   */
+/*   Created: 2022/11/10 10:38:20 by mthibaul          #+#    #+#             */
+/*   Updated: 2022/11/11 13:05:26 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	err_msg(char *err)
+t_list	*ft_lstnew(void *content)
 {
-	write(2, err, ft_strlen(err));
-	return (1);
-}
+	t_list	*list;
 
-void	error(char *err)
-{
-	perror(err);
-	exit(1);
+	list = malloc(sizeof(t_list));
+	if (list == NULL)
+		return (NULL);
+	list->content = content;
+	list->next = NULL;
+	return (list);
 }

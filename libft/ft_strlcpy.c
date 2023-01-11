@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/08 18:08:46 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/10 16:26:52 by mthibaul         ###   ########lyon.fr   */
+/*   Created: 2022/11/08 14:32:33 by mthibaul          #+#    #+#             */
+/*   Updated: 2022/11/11 15:00:21 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	err_msg(char *err)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	write(2, err, ft_strlen(err));
-	return (1);
-}
+	size_t	i;
+	size_t	size;
 
-void	error(char *err)
-{
-	perror(err);
-	exit(1);
+	size = 0;
+	while (src[size])
+		size++;
+	if (dstsize > 0)
+	{
+		i = 0;
+		while (i < dstsize - 1 && src[i])
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	return (size);
 }

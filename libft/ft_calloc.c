@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/08 18:08:46 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/10 16:26:52 by mthibaul         ###   ########lyon.fr   */
+/*   Created: 2022/11/09 13:30:32 by mthibaul          #+#    #+#             */
+/*   Updated: 2022/11/18 10:50:52 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	err_msg(char *err)
+void	*ft_calloc(size_t count, size_t size)
 {
-	write(2, err, ft_strlen(err));
-	return (1);
-}
+	void	*memory;
 
-void	error(char *err)
-{
-	perror(err);
-	exit(1);
+	if (count == 0)
+		return (malloc(0));
+	if (count > 0 && (SIZE_MAX / count) < size)
+		return (NULL);
+	memory = malloc(count * size);
+	if (memory == NULL)
+		return (NULL);
+	ft_bzero(memory, count * size);
+	return (memory);
 }
