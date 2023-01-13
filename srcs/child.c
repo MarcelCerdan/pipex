@@ -6,7 +6,7 @@
 /*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 18:08:48 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/13 13:27:05 by mthibaul         ###   ########lyon.fr   */
+/*   Updated: 2023/01/13 16:17:35 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,15 @@ char	*find_cmd(char **envp, char **cmd_args)
 	{
 		cmd = ft_strjoin(path[i], cmd_args[0]);
 		if (access(cmd, F_OK | R_OK | X_OK) == 0)
+		{
+			free(path);
 			return (cmd);
+		}
 		free(cmd);
 	}
-	err_msg("Command not found\n");
+	free(path);
+	err_msg(cmd_args[0]);
+	err_msg(" : command not found\n");
 	exit(1);
 }
 
