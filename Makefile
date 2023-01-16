@@ -27,8 +27,8 @@ HEAD_BONUS_LST	=	pipex_bonus.h libft.h
 SRCS_LST 	= 	pipex.c		child.c	\
 				error.c
 
-BONUS_LST	=	pipex_bonus.c	child_bonus.c \
-				error_bonus.c
+BONUS_LST	=	pipex_bonus.c	child_bonus.c 		\
+				error_bonus.c	find_cmd_bonus.c	\
 
 OBJS_LST	=	${SRCS_LST:%.c=%.o}
 
