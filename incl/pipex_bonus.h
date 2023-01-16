@@ -6,7 +6,7 @@
 /*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 17:39:02 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/16 14:04:23 by mthibaul         ###   ########lyon.fr   */
+/*   Updated: 2023/01/16 18:12:57 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_pipex
 	int		cmd_nb;
 	int		pipe_nb;
 	int		index;
+	int		here_doc;
 	int		*pipe;
 	char	*cmd;
 	char	**cmd_args;
@@ -35,11 +36,15 @@ typedef struct s_pipex
 	pid_t	pid;
 }	t_pipex;
 
-void	do_pipe(t_pipex *pipex);
+void	do_pipes(t_pipex *pipex);
 void	error(char *err);
 void	close_pipes(t_pipex *pipex);
 void	child(t_pipex pipex, char **av, char **envp);
+void	get_infile(char **av, t_pipex *pipex);
+void	get_outfile(char *file, t_pipex *pipex);
+void	here_doc(char *av, t_pipex *pipex);
 int		err_msg(char *err);
+int		check_arg(char *arg, t_pipex *pipex);
 char	*find_cmd(char **envp, char *cmd_args);
 char	**cmd_path(char **envp);
 

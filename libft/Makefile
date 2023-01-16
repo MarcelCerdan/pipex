@@ -12,7 +12,7 @@ DIR_OBJS	=	.objs/
 
 # ---- Files ---- #
 
-HEAD		=	libft.h
+HEAD		=	libft.h get_next_line.h
 
 SRCS_MAIN	=	main.c
 
@@ -40,6 +40,7 @@ SRCS		=	ft_isalpha.c					ft_isdigit.c	\
 				ft_lstmap_bonus.c				ft_itoa_printf.c		\
 				ft_print_add.c					ft_print_un.c			\
 				ft_printf_utils.c				ft_printf.c				\
+				get_next_line.c					get_next_line_utils.c
 
 OBJS		=	${SRCS:%.c=${DIR_OBJS}%.o}
 

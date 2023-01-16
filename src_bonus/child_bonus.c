@@ -6,7 +6,7 @@
 /*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 18:08:48 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/16 15:21:03 by mthibaul         ###   ########lyon.fr   */
+/*   Updated: 2023/01/16 18:25:32 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	child(t_pipex p, char **av, char **envp)
 		else
 			do_dup(p.pipe[2 * p.index - 2], p.pipe[2 * p.index + 1]);
 		close_pipes(&p);
-		p.cmd_args = ft_split(av[2 + p.index], ' ');
+		p.cmd_args = ft_split(av[2 + p.here_doc + p.index], ' ');
 		p.cmd = find_cmd(p.cmd_path, p.cmd_args[0]);
 		execve(p.cmd, p.cmd_args, envp);
 	}
