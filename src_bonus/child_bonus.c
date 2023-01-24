@@ -6,7 +6,7 @@
 /*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 18:08:48 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/16 18:25:32 by mthibaul         ###   ########lyon.fr   */
+/*   Updated: 2023/01/24 19:01:36 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	child(t_pipex p, char **av, char **envp)
 			do_dup(p.pipe[2 * p.index - 2], p.pipe[2 * p.index + 1]);
 		close_pipes(&p);
 		p.cmd_args = ft_split(av[2 + p.here_doc + p.index], ' ');
+		if (!p.cmd_args)
+			error("cmd_args malloc");
 		p.cmd = find_cmd(p.cmd_path, p.cmd_args[0]);
 		execve(p.cmd, p.cmd_args, envp);
 	}

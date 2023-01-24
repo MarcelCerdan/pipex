@@ -6,7 +6,7 @@
 /*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 13:45:30 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/16 17:38:48 by mthibaul         ###   ########lyon.fr   */
+/*   Updated: 2023/01/24 18:59:47 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ char	**cmd_path(char **envp)
 	}
 	split_path = ft_split(path, ':');
 	if (!split_path)
-	{
-		free(split_path);
-		error("Split commande path");
-	}
+		error("cmd_path malloc");
 	i = 0;
 	while (split_path[i])
 	{
@@ -49,6 +46,8 @@ char	*find_cmd(char **cmd_path, char *cmd_arg)
 	while (*cmd_path)
 	{
 		cmd = ft_strjoin(*cmd_path, cmd_arg);
+		if (!cmd)
+			error("find_cmd malloc");
 		if (access(cmd, 0) == 0)
 			return (cmd);
 		free(cmd);

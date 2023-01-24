@@ -6,7 +6,7 @@
 /*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 18:08:48 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/13 16:17:35 by mthibaul         ###   ########lyon.fr   */
+/*   Updated: 2023/01/24 18:23:37 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ char	*find_cmd(char **envp, char **cmd_args)
 	while (path[i++])
 	{
 		cmd = ft_strjoin(path[i], cmd_args[0]);
+		if (!cmd)
+			error("find_cmd malloc");
 		if (access(cmd, F_OK | R_OK | X_OK) == 0)
 		{
 			free(path);
@@ -47,6 +49,8 @@ int	child(int f, char *cmd, int tube[2], char **envp)
 	if (dup2(f, 0) < 0 || dup2(tube[1], 1) < 0)
 		error("Child dup2");
 	cmd_args = ft_split(cmd, ' ');
+	if (!cmd_args)
+		error("Parent malloc");
 	close(tube[0]);
 	close(f);
 	mycmd = find_cmd(envp, cmd_args);
@@ -56,14 +60,14 @@ int	child(int f, char *cmd, int tube[2], char **envp)
 
 int	parent(int f, char *cmd, int tube[2], char **envp)
 {
-	int		status;
 	char	**cmd_args;
 	char	*mycmd;
 
-	waitpid(-1, &status, 0);
 	if (dup2(f, 1) < 0 || dup2(tube[0], 0) < 0)
 		error("Parent dup2");
 	cmd_args = ft_split(cmd, ' ');
+	if (!cmd_args)
+		error("Parent malloc");
 	close(tube[1]);
 	close(f);
 	mycmd = find_cmd(envp, cmd_args);

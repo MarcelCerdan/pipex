@@ -6,7 +6,7 @@
 /*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 17:34:17 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/16 18:23:21 by mthibaul         ###   ########lyon.fr   */
+/*   Updated: 2023/01/17 16:18:22 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	get_outfile(char *file, t_pipex *pipex)
 	if (!pipex->here_doc)
 		pipex->outfile = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	else
-		pipex->outfile = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		pipex->outfile = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (pipex->outfile < 0)
 		error(file);
 }
@@ -80,6 +80,7 @@ int	main(int ac, char **av, char **envp)
 	while (++(pipex.index) < pipex.cmd_nb)
 		child(pipex, av, envp);
 	close_pipes(&pipex);
+	unlink(".here_doc");
 	waitpid(-1, &status, 0);
 	return (0);
 }

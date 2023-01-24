@@ -29,7 +29,7 @@ SRCS_LST 	= 	pipex.c		child.c	\
 
 BONUS_LST	=	pipex_bonus.c		child_bonus.c 		\
 				error_bonus.c		find_cmd_bonus.c	\
-				here_doc.c			
+				here_doc_bonus.c			
 
 OBJS_LST	=	${SRCS_LST:%.c=%.o}
 
@@ -90,9 +90,14 @@ ${DIR_OBJS}		:
 clean			:
 					${RM} ${DIR_OBJS} 
 
-fclean			:	clean
+fclean_libft	:
 					make fclean -C ${DIR_LIBFT}
-					${RM} ${NAME} bonus
+
+fclean_bonus	:	clean fclean_libft
+					${RM} bonus
+
+fclean			:	fclean_bonus
+					${RM} ${NAME}
 
 re				:	fclean
 					$(MAKE) all

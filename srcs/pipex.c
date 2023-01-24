@@ -6,7 +6,7 @@
 /*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 17:34:17 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/13 13:05:58 by mthibaul         ###   ########lyon.fr   */
+/*   Updated: 2023/01/24 18:21:08 by mthibaul         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ char	**cmd_path(char **envp)
 		i++;
 	}
 	split_path = ft_split(path, ':');
+	if (!split_path)
+		error("Cmd_path malloc");
 	free(path);
 	i = 0;
 	while (split_path[i])
@@ -52,6 +54,7 @@ void	pipex(int f1, int f2, char **av, char **envp)
 		child(f1, av[2], tube, envp);
 	else
 		parent(f2, av[3], tube, envp);
+	waitpid(-1, NULL, 0);
 }
 
 int	main(int ac, char **av, char **envp)
