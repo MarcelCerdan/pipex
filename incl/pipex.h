@@ -26,6 +26,6 @@ void	error(char *err);
 int		err_msg(char *err);
 int		child(int f, char *cmd, int tube[2], char **envp);
 int		parent(int f, char *cmd, int tube[2], char **envp);
-char	**cmd_path(char **envp);
+char	**find_path(char **envp);
 
 #endif

@@ -13,28 +13,23 @@
 #include "pipex.h"
 #include "libft.h"
 
-char	*find_cmd(char **envp, char **cmd_args)
+char	*find_cmd(char **envp, char *cmd_arg)
 {
-	int		i;
 	char	*cmd;
-	char	**path;
+	char	**cmd_path;
 
-	i = 0;
-	path = cmd_path(envp);
-	while (path[i++])
+	cmd_path = find_path(envp);
+	while (*cmd_path)
 	{
-		cmd = ft_strjoin(path[i], cmd_args[0]);
+		cmd = ft_strjoin(*cmd_path, cmd_arg);
 		if (!cmd)
 			error("find_cmd malloc");
-		if (access(cmd, F_OK | R_OK | X_OK) == 0)
-		{
-			free(path);
+		if (access(cmd, 0) == 0)
 			return (cmd);
-		}
 		free(cmd);
+		cmd_path++;
 	}
-	free(path);
-	err_msg(cmd_args[0]);
+	err_msg(cmd_arg);
 	err_msg(" : command not found\n");
 	exit(1);
 }
@@ -51,7 +46,7 @@ int	child(int f, char *cmd, int tube[2], char **envp)
 		error("Parent malloc");
 	close(tube[0]);
 	close(f);
-	mycmd = find_cmd(envp, cmd_args);
+	mycmd = find_cmd(envp, cmd_args[0]);
 	execve(mycmd, cmd_args, envp);
 	return (EXIT_FAILURE);
 }
@@ -68,7 +63,7 @@ int	parent(int f, char *cmd, int tube[2], char **envp)
 		error("Parent malloc");
 	close(tube[1]);
 	close(f);
-	mycmd = find_cmd(envp, cmd_args);
+	mycmd = find_cmd(envp, cmd_args[0]);
 	execve(mycmd, cmd_args, envp);
 	return (EXIT_FAILURE);
 }

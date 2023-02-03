@@ -13,7 +13,7 @@
 #include "pipex.h"
 #include "libft.h"
 
-char	**cmd_path(char **envp)
+char	**find_path(char **envp)
 {
 	int		i;
 	char	*path;
@@ -29,8 +29,7 @@ char	**cmd_path(char **envp)
 	}
 	split_path = ft_split(path, ':');
 	if (!split_path)
-		error("Cmd_path malloc");
-	free(path);
+		error("cmd_path malloc");
 	i = 0;
 	while (split_path[i])
 	{
