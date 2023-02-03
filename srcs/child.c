@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mthibaul <mthibaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 18:08:48 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/24 18:23:37 by mthibaul         ###   ########lyon.fr   */
+/*   Updated: 2023/02/03 14:33:07 by mthibaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,7 @@ int	child(int f, char *cmd, int tube[2], char **envp)
 {
 	char	**cmd_args;
 	char	*mycmd;
-	int		i;
 
-	i = -1;
 	if (dup2(f, 0) < 0 || dup2(tube[1], 1) < 0)
 		error("Child dup2");
 	cmd_args = ft_split(cmd, ' ');

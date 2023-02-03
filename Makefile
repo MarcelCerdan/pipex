@@ -67,10 +67,10 @@ libft.a		:
 # ---- Variables Rules ---- #
 
 ${NAME}			:	${OBJS} Makefile ${HEAD}
-					${CC} ${CFLAGS} -I $(DIR_HEAD) -L libft/ -lft ${OBJS} -o ${NAME}
+					${CC} ${CFLAGS} -I $(DIR_HEAD) ${OBJS} -o ${NAME} -L libft/ -lft 
 
 bonus			:	${OBJS_BONUS} Makefile ${BONUS_HEAD} libft.a
-					${CC} ${CFLAGS} -I $(DIR_HEAD) -L libft/ -lft ${OBJS_BONUS} -o $@
+					${CC} ${CFLAGS} -I $(DIR_HEAD) ${OBJS_BONUS} -o $@ -L libft/ -lft 
 
 # ---- Compiled Rules ---- #
 

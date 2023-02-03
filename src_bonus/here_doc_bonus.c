@@ -3,16 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mthibaul <mthibaul@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mthibaul <mthibaul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:09:49 by mthibaul          #+#    #+#             */
-/*   Updated: 2023/01/24 18:56:13 by mthibaul         ###   ########lyon.fr   */
+/*   Updated: 2023/02/03 15:08:20 by mthibaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 #include "libft.h"
 #include "get_next_line.h"
+
+int	check_here_doc(char *av, char *line)
+{
+	int	len_av;
+	int	len_line;
+
+	if (line)
+	{
+		len_av = ft_strlen(av);
+		len_line = ft_strlen(line);
+		if (len_av == len_line - 1)
+		{
+			if (ft_strncmp(av, line, len_av) == 0 && line[0] != 10)
+				return (0);
+		}
+	}
+	return (1);
+}
 
 int	check_arg(char *arg, t_pipex *pipex)
 {
@@ -36,13 +54,14 @@ void	here_doc(char *av, t_pipex *pipex)
 	fd = open(".here_doc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
 		error("Here_doc");
-	while (ft_strncmp(av, line, ft_strlen(line) - 1) != 0 || line[0] == 10)
+	line = NULL;
+	while (check_here_doc(av, line) > 0)
 	{
 		write(1, "pipex heredoc> ", 16);
 		line = get_next_line(0);
 		if (!line)
 			error("Get_next_line");
-		if (ft_strncmp(av, line, ft_strlen(line) - 1) != 0 || line[0] == 10)
+		if (check_here_doc(av, line) > 0)
 		{
 			write(fd, line, ft_strlen(line));
 			free(line);
