@@ -13,6 +13,45 @@
 #include "pipex_bonus.h"
 #include "libft.h"
 
+static char	*ft_join(char const *s1, char const *s2)
+{
+	char	*joined_str;
+	size_t	len;
+	int		i;
+
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	len = ft_strlen(s1) + ft_strlen(s2);
+	joined_str = malloc((len + 1) * sizeof(char));
+	if (joined_str == NULL)
+		return (NULL);
+	i = 0;
+	while (s1[i])
+	{
+		joined_str[i] = s1[i];
+		i++;
+	}
+	joined_str[i] = 0;
+	ft_strlcat(joined_str, s2, len + 1);
+	return (joined_str);
+}
+
+char	**ft_freesplit(char **dst)
+{
+	int	i;
+
+	i = 0;
+	while (dst[i])
+		i++;
+	i--;
+	while (i >= 0)
+	{
+		free(dst[i]);
+		i--;
+	}
+	return (free(dst), NULL);
+}
+
 char	**cmd_path(char **envp)
 {
 	int		i;
@@ -28,6 +67,7 @@ char	**cmd_path(char **envp)
 		i++;
 	}
 	split_path = ft_split(path, ':');
+	free(path);
 	if (!split_path)
 		error("cmd_path malloc");
 	i = 0;
@@ -41,19 +81,20 @@ char	**cmd_path(char **envp)
 
 char	*find_cmd(char **cmd_path, char *cmd_arg)
 {
+	int		i;
 	char	*cmd;
 
-	while (*cmd_path)
+	i = -1;
+	while (cmd_path[++i])
 	{
-		cmd = ft_strjoin(*cmd_path, cmd_arg);
+		cmd = ft_join(cmd_path[i], cmd_arg);
 		if (!cmd)
 			error("find_cmd malloc");
 		if (access(cmd, 0) == 0)
 			return (cmd);
 		free(cmd);
-		cmd_path++;
 	}
 	err_msg(cmd_arg);
 	err_msg(" : command not found\n");
-	exit(1);
+	return (NULL);
 }

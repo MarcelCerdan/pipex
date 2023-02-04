@@ -16,16 +16,11 @@
 
 int	check_here_doc(char *av, char *line)
 {
-	int	len_av;
-	int	len_line;
-
 	if (line)
 	{
-		len_av = ft_strlen(av);
-		len_line = ft_strlen(line);
-		if (len_av == len_line - 1)
+		if (ft_strlen(av) == ft_strlen(line) - 1)
 		{
-			if (ft_strncmp(av, line, len_av) == 0 && line[0] != 10)
+			if (ft_strncmp(av, line, ft_strlen(av)) == 0 && line[0] != 10)
 				return (0);
 		}
 	}
@@ -57,15 +52,13 @@ void	here_doc(char *av, t_pipex *pipex)
 	line = NULL;
 	while (check_here_doc(av, line) > 0)
 	{
+		free(line);
 		write(1, "pipex heredoc> ", 16);
 		line = get_next_line(0);
 		if (!line)
 			error("Get_next_line");
 		if (check_here_doc(av, line) > 0)
-		{
 			write(fd, line, ft_strlen(line));
-			free(line);
-		}
 	}
 	free(line);
 	close(fd);

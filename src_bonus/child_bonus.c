@@ -37,6 +37,11 @@ void	child(t_pipex p, char **av, char **envp)
 		if (!p.cmd_args)
 			error("cmd_args malloc");
 		p.cmd = find_cmd(p.cmd_path, p.cmd_args[0]);
+		if (p.cmd == NULL)
+		{
+			free_pipex(&p);
+			exit(1);
+		}
 		execve(p.cmd, p.cmd_args, envp);
 	}
 }

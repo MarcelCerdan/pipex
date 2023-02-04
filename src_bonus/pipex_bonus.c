@@ -70,7 +70,7 @@ int	main(int ac, char **av, char **envp)
 	get_infile(av, &pipex);
 	get_outfile(av[ac - 1], &pipex);
 	pipex.cmd_nb = ac - 3 - pipex.here_doc;
-	pipex.pipe_nb = 2 * (pipex.cmd_nb - 1);
+	pipex.pipe_nb = 2 * pipex.cmd_nb;
 	pipex.pipe = malloc(sizeof(int) * pipex.pipe_nb);
 	if (!pipex.pipe)
 		error("Pipe malloc");
@@ -80,6 +80,8 @@ int	main(int ac, char **av, char **envp)
 	while (++(pipex.index) < pipex.cmd_nb)
 		child(pipex, av, envp);
 	close_pipes(&pipex);
+	free(pipex.pipe);
+	ft_freesplit(pipex.cmd_path);
 	unlink(".here_doc");
 	waitpid(-1, &status, 0);
 	return (0);

@@ -36,6 +36,7 @@ typedef struct s_pipex
 	pid_t	pid;
 }	t_pipex;
 
+void	free_pipex(t_pipex *p);
 void	do_pipes(t_pipex *pipex);
 void	error(char *err);
 void	close_pipes(t_pipex *pipex);
@@ -47,5 +48,6 @@ int		err_msg(char *err);
 int		check_arg(char *arg, t_pipex *pipex);
 char	*find_cmd(char **envp, char *cmd_args);
 char	**cmd_path(char **envp);
+char	**ft_freesplit(char **dst);
 
 #endif
