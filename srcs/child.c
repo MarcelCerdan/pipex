@@ -13,25 +13,47 @@
 #include "pipex.h"
 #include "libft.h"
 
+static char	**ft_freesplit(char **dst)
+{
+	int	i;
+
+	i = 0;
+	while (dst[i])
+		i++;
+	i--;
+	while (i >= 0)
+	{
+		free(dst[i]);
+		i--;
+	}
+	return (free(dst), NULL);
+}
+
 char	*find_cmd(char **envp, char *cmd_arg)
 {
+	int		i;
 	char	*cmd;
 	char	**cmd_path;
 
 	cmd_path = find_path(envp);
-	while (*cmd_path)
+	i = -1;
+	while (cmd_path[++i])
 	{
-		cmd = ft_strjoin(*cmd_path, cmd_arg);
+		cmd = ft_strjoin(cmd_path[i], cmd_arg);
 		if (!cmd)
+		{
+			ft_freesplit(cmd_path);
 			error("find_cmd malloc");
+		}
 		if (access(cmd, 0) == 0)
-			return (cmd);
+			return (free(cmd_path), cmd);
 		free(cmd);
-		cmd_path++;
 	}
+	free(cmd_path);
 	err_msg(cmd_arg);
+	free(cmd_arg);
 	err_msg(" : command not found\n");
-	exit(1);
+	return (NULL);
 }
 
 int	child(int f, char *cmd, int tube[2], char **envp)
@@ -47,6 +69,11 @@ int	child(int f, char *cmd, int tube[2], char **envp)
 	close(tube[0]);
 	close(f);
 	mycmd = find_cmd(envp, cmd_args[0]);
+	if (mycmd == NULL)
+	{
+		free(cmd_args);
+		exit(1);
+	}
 	execve(mycmd, cmd_args, envp);
 	return (EXIT_FAILURE);
 }
@@ -64,6 +91,11 @@ int	parent(int f, char *cmd, int tube[2], char **envp)
 	close(tube[1]);
 	close(f);
 	mycmd = find_cmd(envp, cmd_args[0]);
+	if (mycmd == NULL)
+	{
+		free(cmd_args);
+		exit(1);
+	}
 	execve(mycmd, cmd_args, envp);
 	return (EXIT_FAILURE);
 }

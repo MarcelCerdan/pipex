@@ -28,6 +28,7 @@ char	**find_path(char **envp)
 		i++;
 	}
 	split_path = ft_split(path, ':');
+	free(path);
 	if (!split_path)
 		error("cmd_path malloc");
 	i = 0;

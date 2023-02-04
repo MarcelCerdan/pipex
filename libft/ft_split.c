@@ -33,13 +33,17 @@ static int	ft_count_word(char const *s, char c)
 	return (size);
 }
 
-static char	**ft_freesplit(char **dst, int i)
+static char	**ft_freesplit(char **dst)
 {
-	while (i >= 0)
+	int	i;
+
+	i = 0;
+	while (dst[i])
 	{
 		free(dst[i]);
-		i--;
+		i++;
 	}
+	free(dst);
 	return (NULL);
 }
 
@@ -63,7 +67,7 @@ static char	**ft_split_strs(char **dst, char const *src, char c)
 		{
 			dst[nb_wrd] = ft_substr(src, last_i, i - last_i);
 			if (dst[nb_wrd] == NULL)
-				return (ft_freesplit(dst, nb_wrd));
+				return (ft_freesplit(dst));
 			nb_wrd++;
 		}
 	}
