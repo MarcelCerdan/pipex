@@ -74,6 +74,8 @@ char	**cmd_path(char **envp)
 	while (split_path[i])
 	{
 		split_path[i] = ft_strjoin(split_path[i], "/");
+		if (!split_path[i])
+			exit(err_msg("Error in path\n"));
 		i++;
 	}
 	return (split_path);
@@ -89,7 +91,7 @@ char	*find_cmd(char **cmd_path, char *cmd_arg)
 	{
 		cmd = ft_join(cmd_path[i], cmd_arg);
 		if (!cmd)
-			error("find_cmd malloc");
+			exit(err_msg("Error in command\n"));
 		if (access(cmd, 0) == 0)
 			return (cmd);
 		free(cmd);

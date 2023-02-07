@@ -19,23 +19,23 @@ char	**find_path(char **envp)
 	char	*path;
 	char	**split_path;
 
-	i = 0;
+	i = -1;
 	path = NULL;
-	while (envp[i] && !path)
+	while (envp[++i] && !path)
 	{
 		if (ft_strncmp("PATH", envp[i], 4) == 0)
 			path = ft_substr(envp[i], 5, ft_strlen(envp[i]) - 4);
-		i++;
 	}
 	split_path = ft_split(path, ':');
 	free(path);
 	if (!split_path)
 		error("cmd_path malloc");
-	i = 0;
-	while (split_path[i])
+	i = -1;
+	while (split_path[++i])
 	{
 		split_path[i] = ft_strjoin(split_path[i], "/");
-		i++;
+		if (!split_path[i])
+			exit(err_msg("Error in path\n"));
 	}
 	return (split_path);
 }

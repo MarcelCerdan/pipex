@@ -19,12 +19,9 @@ static char	**ft_freesplit(char **dst)
 
 	i = 0;
 	while (dst[i])
-		i++;
-	i--;
-	while (i >= 0)
 	{
 		free(dst[i]);
-		i--;
+		i++;
 	}
 	return (free(dst), NULL);
 }
@@ -43,7 +40,7 @@ char	*find_cmd(char **envp, char *cmd_arg)
 		if (!cmd)
 		{
 			ft_freesplit(cmd_path);
-			error("find_cmd malloc");
+			exit(err_msg("Error in command\n"));
 		}
 		if (access(cmd, 0) == 0)
 			return (free(cmd_path), cmd);
